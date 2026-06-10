@@ -19,7 +19,7 @@
   --card-blur:  blur(20px);
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
   font-family: 'Montserrat', 'Segoe UI', sans-serif;
@@ -1541,14 +1541,8 @@ footer p { color: var(--text-muted); font-size: 0.82rem; }
   .stat-label { font-size: 0.68rem; }
   .stat-divider { display: none; }
 
-  .main-nav {
-    left: 12px;
-    right: 12px;
-    top: 0;
-    border-radius: 0;
-    padding: 0;
-  }
-  .nav-inner { padding: 12px 16px; }
+  .main-nav { left: 0; right: 0; padding: 0; }
+  .nav-inner { padding: 12px 20px; }
   .nav-cta { display: none; }
 
   .pain-inner { gap: 28px; }
