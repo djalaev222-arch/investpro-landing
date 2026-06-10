@@ -1,0 +1,7 @@
+node_modules/
+data/leads.json
+.env
+.netlify/
+*.log
+/index.html
+/Фото/
