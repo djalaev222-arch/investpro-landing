@@ -8,7 +8,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Netlify deploy
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Netlify
         run: |
-          curl -s -X POST "https://api.netlify.com/build_hooks/6a29815b0269167ecff7be52"
-          echo "Deploy triggered → https://investpro-landing.netlify.app"
+          npm install -g netlify-cli
+          netlify deploy --dir=public --prod \
+            --auth=${{ secrets.NETLIFY_AUTH_TOKEN }} \
+            --site=${{ secrets.NETLIFY_SITE_ID }}
