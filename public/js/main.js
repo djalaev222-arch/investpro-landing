@@ -12,7 +12,7 @@ function initBurger() {
     menu.classList.toggle('open');
   });
 
-  menu.querySelectorAll('a').forEach(a => {
+  menu.querySelectorAll('a, button').forEach(a => {
     a.addEventListener('click', () => {
       btn.classList.remove('open');
       menu.classList.remove('open');

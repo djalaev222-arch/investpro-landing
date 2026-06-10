@@ -211,6 +211,49 @@ section > *:not(.bg-canvas):not(.grid-overlay):not(.hero-glow-top):not(.hero-glo
 .nav-mobile-menu ul li:last-child a { border-bottom: none; }
 .nav-mobile-menu ul li a:hover { color: var(--accent); }
 
+.nav-mobile-cta {
+  padding: 14px 20px 20px;
+  border-top: 1px solid rgba(0,229,160,0.06);
+  margin-top: 4px;
+}
+.nav-mobile-cta-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #00E5A0, #00B87A);
+  color: #060C0A;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(0,229,160,0.22);
+  transition: opacity 0.15s;
+}
+.nav-mobile-cta-btn:active { opacity: 0.82; }
+
+/* Telegram floating support button */
+.tg-support {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  z-index: 997;
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #229ED9, #0077B6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 22px rgba(34,158,217,0.50);
+  text-decoration: none;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.tg-support:hover {
+  transform: translateY(-3px) scale(1.07);
+  box-shadow: 0 10px 36px rgba(34,158,217,0.65);
+}
+.tg-support:active { transform: scale(0.94); }
+
 /* ═══════════════════════════════════════════
    HERO
 ═══════════════════════════════════════════ */
@@ -794,6 +837,7 @@ section { padding: 100px 40px; }
   margin-top: 48px;
   overflow-x: scroll;
   scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
@@ -846,6 +890,7 @@ section { padding: 100px 40px; }
 
 .review-card {
   flex: 0 0 calc(33.333% - 14px);
+  scroll-snap-align: start;
   background: rgba(10,22,16,0.80);
   border: 1px solid var(--border);
   border-radius: 20px;
@@ -1498,6 +1543,7 @@ footer p { color: var(--text-muted); font-size: 0.82rem; }
 
   .main-nav { padding: 0; }
   .nav-inner { padding: 12px 20px; }
+  .nav-cta { display: none; }
 
   .pain-inner { gap: 28px; }
   .pain-cards { grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -1586,6 +1632,7 @@ footer p { color: var(--text-muted); font-size: 0.82rem; }
   .modal-title { font-size: 1.2rem; }
   .final-cta h2 { font-size: clamp(1.5rem, 5vw, 2rem); }
   .deadline-badge { font-size: 0.74rem; flex-wrap: wrap; justify-content: center; gap: 6px; }
+  .tg-support { width: 46px; height: 46px; bottom: 16px; right: 16px; }
 }
 
 @media (hover: none) {
