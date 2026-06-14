@@ -579,7 +579,6 @@
 
   window.addEventListener('DOMContentLoaded', () => {
     setupCanvas('section.hero',      'bgHero',    HeroScene);
-    setupCanvas('section.pain',      'bgPain',    PainScene);
     setupCanvas('section.program',   'bgProgram', ProgramScene);
     setupCanvas('section.reviews',   'bgReviews', ReviewsScene);
     setupCanvas('section.pricing',   'bgPricing', PricingScene);
