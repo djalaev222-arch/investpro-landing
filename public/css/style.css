@@ -1124,7 +1124,7 @@ section { padding: 100px 40px; }
   transform: translateX(-50%);
   pointer-events: none;
 }
-.pricing-inner { max-width: 1040px; margin: 0 auto; }
+.pricing-inner { max-width: 1040px; margin: 0 auto; position: relative; left: calc((100vw - 100%) / 2); }
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
