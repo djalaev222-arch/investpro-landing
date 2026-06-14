@@ -896,7 +896,6 @@ section { padding: 100px 40px; }
   margin-top: 48px;
   overflow-x: scroll;
   scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }

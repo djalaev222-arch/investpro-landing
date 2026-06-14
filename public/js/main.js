@@ -49,6 +49,18 @@ function initReviewsSlider() {
   }
   function getMaxIdx() { return Math.max(0, total - perView()); }
 
+  function buildDots() {
+    if (!dotsWrap) return;
+    const count = getMaxIdx() + 1;
+    dotsWrap.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+      const d = document.createElement('span');
+      d.className = 'slider-dot' + (i === current ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    }
+  }
+
   function applyWidths() {
     const pv = perView();
     cachedW  = Math.floor((wrap.clientWidth - GAP * (pv - 1)) / pv);
@@ -72,7 +84,6 @@ function initReviewsSlider() {
 
   prevBtn?.addEventListener('click', () => goTo(current - 1));
   nextBtn?.addEventListener('click', () => goTo(current + 1));
-  dotsWrap?.querySelectorAll('.slider-dot').forEach((d, i) => d.addEventListener('click', () => goTo(i)));
 
   /* Sync current on native scroll end */
   let scrollTimer;
@@ -85,7 +96,7 @@ function initReviewsSlider() {
     }, 120);
   }, { passive: true });
 
-  /* Touch swipe (for when native scroll is not triggered) */
+  /* Touch swipe fallback */
   let startX = 0;
   wrap.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
   wrap.addEventListener('touchend',   e => {
@@ -93,8 +104,17 @@ function initReviewsSlider() {
     if (Math.abs(dx) > 60) goTo(current + (dx > 0 ? 1 : -1));
   }, { passive: true });
 
-  window.addEventListener('resize', () => { current = 0; applyWidths(); wrap.scrollTo({ left: 0, behavior: 'instant' }); updateUI(); });
+  let lastPv = perView();
+  window.addEventListener('resize', () => {
+    const newPv = perView();
+    current = 0;
+    applyWidths();
+    wrap.scrollTo({ left: 0, behavior: 'instant' });
+    if (newPv !== lastPv) { lastPv = newPv; buildDots(); }
+    updateUI();
+  });
   applyWidths();
+  buildDots();
   updateUI();
 }
 
@@ -580,10 +600,8 @@ function initPricingSlider() {
   const nextBtn  = document.getElementById('pricingNext');
   if (!track || !prevBtn || !nextBtn) return;
 
-  let scrollBy = track.querySelector('.price-card')?.offsetWidth + 16 || 300;
-  window.addEventListener('resize', () => {
-    scrollBy = track.querySelector('.price-card')?.offsetWidth + 16 || 300;
-  });
+  const GAP = 16;
+  let scrollBy = (track.querySelector('.price-card')?.offsetWidth || 300) + GAP;
 
   const dotsContainer = document.getElementById('pricingDots');
   const dots = dotsContainer ? [...dotsContainer.querySelectorAll('.pricing-dot')] : [];
@@ -611,7 +629,22 @@ function initPricingSlider() {
     const idx = Math.round(track.scrollLeft / (scrollBy || 1));
     updateDots(Math.max(0, Math.min(idx, cardCount - 1)));
   };
+
   track.addEventListener('scroll', updateArrows, { passive: true });
+
+  /* Touch swipe for browsers that need explicit handling */
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const dx = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 50) track.scrollBy({ left: dx > 0 ? scrollBy : -scrollBy, behavior: 'smooth' });
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    scrollBy = (track.querySelector('.price-card')?.offsetWidth || 300) + GAP;
+    updateArrows();
+  });
+
   updateArrows();
 }
 
