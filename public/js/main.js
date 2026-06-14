@@ -69,16 +69,21 @@ function initReviewsSlider() {
   }
 
   function updateUI() {
-    const mx = getMaxIdx();
     dotsWrap?.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-    if (prevBtn) prevBtn.disabled = current === 0;
-    if (nextBtn) nextBtn.disabled = current >= mx;
+    if (prevBtn) prevBtn.disabled = false;
+    if (nextBtn) nextBtn.disabled = false;
   }
 
   function goTo(idx) {
     const mx = getMaxIdx();
-    current  = Math.max(0, Math.min(idx, mx));
-    wrap.scrollTo({ left: current * (cachedW + GAP), behavior: 'smooth' });
+    const loops = idx > mx ? 0 : idx < 0 ? mx : idx;
+    const instant = idx > mx || idx < 0;
+    current = loops;
+    if (instant) {
+      wrap.scrollLeft = current * (cachedW + GAP);
+    } else {
+      wrap.scrollTo({ left: current * (cachedW + GAP), behavior: 'smooth' });
+    }
     updateUI();
   }
 
