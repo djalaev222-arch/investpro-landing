@@ -600,7 +600,7 @@ function initPricingSlider() {
   const nextBtn  = document.getElementById('pricingNext');
   if (!track || !prevBtn || !nextBtn) return;
 
-  const GAP = 16;
+  const GAP = 24;
   let scrollBy = (track.querySelector('.price-card')?.offsetWidth || 300) + GAP;
 
   const dotsContainer = document.getElementById('pricingDots');
@@ -631,14 +631,6 @@ function initPricingSlider() {
   };
 
   track.addEventListener('scroll', updateArrows, { passive: true });
-
-  /* Touch swipe for browsers that need explicit handling */
-  let touchStartX = 0;
-  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-  track.addEventListener('touchend', e => {
-    const dx = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(dx) > 50) track.scrollBy({ left: dx > 0 ? scrollBy : -scrollBy, behavior: 'smooth' });
-  }, { passive: true });
 
   window.addEventListener('resize', () => {
     scrollBy = (track.querySelector('.price-card')?.offsetWidth || 300) + GAP;

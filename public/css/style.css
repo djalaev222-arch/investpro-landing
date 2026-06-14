@@ -22,13 +22,13 @@
   --card-blur:  blur(20px);
 }
 
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 
 body {
   font-family: 'Space Grotesk', system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 h1, h2 {
@@ -1617,8 +1617,13 @@ footer p { color: var(--text-muted); font-size: 0.82rem; }
   .nav-cta { display: none; }
 
   .pain-inner { gap: 28px; }
-  .pain-cards { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .pain-card { padding: 18px 14px; }
+  section.pain { overflow: visible; }
+  .pain-cards { display: flex; flex-direction: column; gap: 0; grid-template-columns: unset; padding-bottom: 60px; }
+  .pain-card { position: sticky; padding: 18px 14px; margin-bottom: 0; }
+  .pain-card:nth-child(1) { top: 60px;  z-index: 1; }
+  .pain-card:nth-child(2) { top: 112px; z-index: 2; }
+  .pain-card:nth-child(3) { top: 164px; z-index: 3; }
+  .pain-card:nth-child(4) { top: 216px; z-index: 4; }
 
   /* For-who: sticky partial stack — 52px gap = visible peek of previous card */
   section.for-who { overflow: visible; }
@@ -1692,7 +1697,7 @@ footer p { color: var(--text-muted); font-size: 0.82rem; }
   .hero { padding: 80px 16px 44px; }
   .final-cta { padding: 60px 16px; }
   .hero-badge { font-size: 0.7rem; padding: 4px 12px; }
-  .pain-cards { grid-template-columns: 1fr; gap: 10px; }
+  .pain-cards { grid-template-columns: unset; gap: 0; }
   .pain-card { padding: 16px 14px; display: flex; align-items: flex-start; gap: 14px; }
   .pain-icon { margin-bottom: 0; flex-shrink: 0; width: 40px; height: 40px; }
   .pain-icon svg { width: 20px; height: 20px; }
