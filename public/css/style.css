@@ -1470,11 +1470,11 @@ footer p { color: var(--text-muted); font-size: 0.82rem; }
   to { opacity: 1; transform: translateY(0); }
 }
 .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.75s ease, transform 0.75s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.visible { opacity: 1; transform: none; }
 .reveal-left { opacity: 0; transform: translateX(-44px); transition: opacity 0.75s ease, transform 0.75s ease; }
-.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-left.visible { opacity: 1; transform: none; }
 .reveal-right { opacity: 0; transform: translateX(44px); transition: opacity 0.75s ease, transform 0.75s ease; }
-.reveal-right.visible { opacity: 1; transform: translateX(0); }
+.reveal-right.visible { opacity: 1; transform: none; }
 
 /* ═══════════════════════════════════════════
    RESPONSIVE
@@ -1563,6 +1563,8 @@ footer p { color: var(--text-muted); font-size: 0.82rem; }
     padding: 22px 20px 8px;
     align-items: stretch;
     margin-top: 0;
+    width: auto;
+    min-width: 0;
   }
   .pricing-grid::-webkit-scrollbar { display: none; }
   .price-card {

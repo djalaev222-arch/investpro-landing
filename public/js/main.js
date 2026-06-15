@@ -79,10 +79,13 @@ function initReviewsSlider() {
     const loops = idx > mx ? 0 : idx < 0 ? mx : idx;
     const instant = idx > mx || idx < 0;
     current = loops;
+    const target = current === mx
+      ? wrap.scrollWidth - wrap.clientWidth
+      : current * (cachedW + GAP);
     if (instant) {
-      wrap.scrollLeft = current * (cachedW + GAP);
+      wrap.scrollLeft = target;
     } else {
-      wrap.scrollTo({ left: current * (cachedW + GAP), behavior: 'smooth' });
+      wrap.scrollTo({ left: target, behavior: 'smooth' });
     }
     updateUI();
   }
