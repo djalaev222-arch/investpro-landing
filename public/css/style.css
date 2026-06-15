@@ -1093,9 +1093,6 @@ section { padding: 100px 40px; }
 ═══════════════════════════════════════════ */
 /* Pricing arrows */
 .pricing-slider-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
   margin-top: 60px;
 }
 .pricing-arrow {
@@ -1516,6 +1513,9 @@ footer p { color: var(--text-muted); font-size: 0.82rem; }
   /* Pricing: swipeable on tablet */
   .pricing-dots { display: flex; }
   .pricing-slider-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     margin-top: 60px;
     position: relative;
   }
