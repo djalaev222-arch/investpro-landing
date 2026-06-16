@@ -90,11 +90,11 @@ function initReviewsSlider() {
     updateUI();
   }
 
-  prevBtn?.addEventListener('click', () => goTo(current - 1));
-  nextBtn?.addEventListener('click', () => goTo(current + 1));
-
   /* Sync current on native scroll end */
   let scrollTimer;
+
+  prevBtn?.addEventListener('click', () => { clearTimeout(scrollTimer); goTo(current - 1); });
+  nextBtn?.addEventListener('click', () => { clearTimeout(scrollTimer); goTo(current + 1); });
   wrap.addEventListener('scroll', () => {
     clearTimeout(scrollTimer);
     scrollTimer = setTimeout(() => {
@@ -317,31 +317,25 @@ formEl?.addEventListener('submit', async (e) => {
   submitBtn.disabled = true;
   submitBtn.textContent = 'Отправляем...';
   const data = {
-    name:   document.getElementById('nameInput').value.trim(),
-    phone:  document.getElementById('phoneInput').value.trim(),
-    email:  document.getElementById('emailInput').value.trim(),
-    tariff: document.getElementById('tariffInput').value,
+    name:       document.getElementById('nameInput').value.trim(),
+    phone:      document.getElementById('phoneInput').value.trim(),
+    email:      document.getElementById('emailInput').value.trim(),
+    tariff:     document.getElementById('tariffInput').value,
+    _honeypot:  document.getElementById('honeypotInput').value,
   };
   try {
-    const isNetlify = location.hostname !== 'localhost' && location.hostname !== '127.0.0.1';
-    let ok = false;
+    const res = await fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    const json = await res.json();
 
-    if (isNetlify) {
-      const body = new URLSearchParams({ 'form-name': 'leads', ...data });
-      const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() });
-      ok = res.ok;
-    } else {
-      const res  = await fetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-      const json = await res.json();
-      ok = json.success;
-      if (!ok) { alert(json.error || 'Ошибка. Попробуйте ещё раз.'); resetBtn(); return; }
-    }
-
-    if (ok) {
+    if (json.success) {
       stepForm.style.display = 'none';
       stepSuccess.style.display = 'block';
     } else {
-      alert('Ошибка. Попробуйте ещё раз.');
+      alert(json.error || 'Ошибка. Попробуйте ещё раз.');
       resetBtn();
     }
   } catch {

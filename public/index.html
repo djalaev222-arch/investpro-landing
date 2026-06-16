@@ -703,6 +703,9 @@
       <div class="selected-tariff-badge" id="selectedTariffBadge"></div>
       <form id="leadForm">
         <input type="hidden" id="tariffInput">
+        <div style="display:none" aria-hidden="true">
+          <input type="text" id="honeypotInput" tabindex="-1" autocomplete="off">
+        </div>
         <div class="form-group">
           <label for="nameInput">Имя *</label>
           <input type="text" id="nameInput" placeholder="Твоё имя" required autocomplete="off">
@@ -751,13 +754,6 @@
 <!-- Scanline overlay -->
 <div class="scanline-overlay"></div>
 
-<!-- Netlify Forms detection (hidden) -->
-<form name="leads" netlify hidden>
-  <input name="name" type="text">
-  <input name="phone" type="tel">
-  <input name="email" type="email">
-  <input name="tariff" type="text">
-</form>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="js/backgrounds.js"></script>

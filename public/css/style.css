@@ -1110,7 +1110,7 @@ section { padding: 100px 40px; }
 .pricing-arrow:hover { background: rgba(0,229,160,0.18); border-color: var(--accent); }
 .pricing-arrow:disabled { opacity: 0.3; cursor: default; }
 
-.pricing { background: linear-gradient(180deg, #060C0A, #09150E); text-align: center; }
+.pricing { background: linear-gradient(180deg, #060C0A, #09150E); text-align: center; display: flex; flex-direction: column; align-items: center; }
 .pricing::before {
   content: '';
   position: absolute;
@@ -1121,7 +1121,7 @@ section { padding: 100px 40px; }
   transform: translateX(-50%);
   pointer-events: none;
 }
-.pricing-inner { max-width: 1040px; margin: 0 auto; }
+.pricing-inner { max-width: 1040px; width: 100%; margin: 0 auto; }
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1652,6 +1652,14 @@ footer p { color: var(--text-muted); font-size: 0.82rem; }
   .module-card:nth-child(6) { top: 320px; z-index: 6; }
   .module-body h3 { font-size: 0.95rem; }
   .program-format { font-size: 0.85rem; padding: 14px 18px; text-align: left; margin-top: 80px; }
+
+  /* Sticky cards: cancel reveal animation so transform doesn't break position:sticky */
+  .for-who-card.reveal, .for-who-card.reveal.visible,
+  .module-card.reveal, .module-card.reveal.visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 
   /* Reviews: 1 per view on mobile */
   .review-card { flex: 0 0 calc(100% - 4px); padding: 20px 18px; border-radius: 18px; }
