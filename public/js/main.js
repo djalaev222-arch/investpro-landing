@@ -51,7 +51,12 @@ function initReviewsSlider() {
 
   function buildDots() {
     if (!dotsWrap) return;
-    const count = getMaxIdx() + 1;
+    let mx = getMaxIdx();
+    if (cachedW > 0) {
+      const maxScroll = wrap.scrollWidth - wrap.clientWidth;
+      if (maxScroll > 0) mx = Math.min(mx, Math.round(maxScroll / (cachedW + GAP)));
+    }
+    const count = Math.max(1, mx + 1);
     dotsWrap.innerHTML = '';
     for (let i = 0; i < count; i++) {
       const d = document.createElement('span');
@@ -112,13 +117,11 @@ function initReviewsSlider() {
     if (Math.abs(dx) > 60) goTo(current + (dx > 0 ? 1 : -1));
   }, { passive: true });
 
-  let lastPv = perView();
   window.addEventListener('resize', () => {
-    const newPv = perView();
     current = 0;
     applyWidths();
     wrap.scrollTo({ left: 0, behavior: 'instant' });
-    if (newPv !== lastPv) { lastPv = newPv; buildDots(); }
+    buildDots();
     updateUI();
   });
   applyWidths();

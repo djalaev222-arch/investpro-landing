@@ -22,7 +22,7 @@
   --card-blur:  blur(20px);
 }
 
-html { scroll-behavior: smooth; overflow-x: clip; }
+html { scroll-behavior: smooth; overflow-x: clip; scrollbar-gutter: stable both-edges; }
 
 body {
   font-family: 'Space Grotesk', system-ui, sans-serif;
